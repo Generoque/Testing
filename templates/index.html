@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Prediction</title>
+</head>
+<body>
+    <h1>Scan folder</h1>
+    <form action="/scan" method="post">
+        <input type="hidden" name="days" value="{{ days }}">
+        <button type="submit">Scan Folder</button>
+    </form>
+
+    <ul>
+        {% if files %}
+            {% for file in files %}
+                <li>{{ file }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No files found</li>
+        {% endif %}
+    </ul>
+    <br>
+
+    <h1>Enter Number of Days for Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="days">Number of Days:</label>
+        <input type="number" name="days" id="days" required>
+        <button type="submit">Predict</button>
+    </form>
+    <br>
+    
+    
+    <h2>Predicted Event IDs:</h2>
+    <div id="prediction_result">
+        {% if predictions %}
+            <ul>
+                {% for filename, predicted_pid in predictions %}
+                    <li>{{ filename }}: {{ predicted_pid }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <br>
+    
+</body>
+</html>
