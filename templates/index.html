@@ -8,7 +8,6 @@
 <body>
     <h1>Scan folder</h1>
     <form action="/scan" method="post">
-        <input type="hidden" name="days" value="{{ days }}">
         <button type="submit">Scan Folder</button>
     </form>
 
@@ -31,18 +30,22 @@
     </form>
     <br>
     
-    
     <h2>Predicted Event IDs:</h2>
     <div id="prediction_result">
         {% if predictions %}
             <ul>
-                {% for filename, predicted_pid in predictions %}
-                    <li>{{ filename }}: {{ predicted_pid }}</li>
+                {% for filename, predicted_pids in predictions %}
+                    <li>{{ filename }}: 
+                        <ul>
+                            {% for predicted_pid in predicted_pids %}
+                                <li>Model {{ loop.index }}: {{ predicted_pid }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
     <br>
-    
 </body>
 </html>
